@@ -234,5 +234,43 @@ namespace TaskTracker.UI
                 Console.ReadKey();
             }
         }
+
+        private void SetTaskPriority()
+        {
+            Console.WriteLine();
+            Console.Write("Введите ID задачи: ");
+            string input = Console.ReadLine();
+            int id;
+            if (!int.TryParse(input, out id))
+            {
+                Console.WriteLine("Неверный ID.");
+                return;
+            }
+
+            Console.WriteLine("Приоритет:");
+            Console.WriteLine("1. Low");
+            Console.WriteLine("2. Medium");
+            Console.WriteLine("3. High");
+            Console.Write("Выберите: ");
+
+            string prInput = Console.ReadLine();
+            int prChoice;
+            if (int.TryParse(prInput, out prChoice))
+            {
+                switch (prChoice)
+                {
+                    case 1: Console.WriteLine("Приоритет установлен: Low"); break;
+                    case 2: Console.WriteLine("Приоритет установлен: Medium"); break;
+                    case 3: Console.WriteLine("Приоритет установлен: High"); break;
+                    default: Console.WriteLine("Неверный выбор."); break;
+                }
+            }
+
+            if (useArrowMenu)
+            {
+                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.ReadKey();
+            }
+        }
     }
 }
