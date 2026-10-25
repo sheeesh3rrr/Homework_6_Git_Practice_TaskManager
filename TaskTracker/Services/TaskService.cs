@@ -79,5 +79,12 @@ namespace TaskTracker.Services
         {
             return tasks.Count;
         }
+
+        public string GetBasicStats()
+        {
+            int total = tasks.Count;
+            int doneCount = GetTasksByStatus(TaskStatus.Done).Count;
+            return $"Всего задач: {total}, Завершено: {doneCount}";
+        }
     }
 }
