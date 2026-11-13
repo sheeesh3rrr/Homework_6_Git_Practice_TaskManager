@@ -5,6 +5,6 @@ namespace TaskTracker.Models
         New,
         InProgress,
         Done,
-        Canceled
+        Cancelled
     }
 }
