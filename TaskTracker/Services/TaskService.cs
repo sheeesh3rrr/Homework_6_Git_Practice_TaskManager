@@ -79,6 +79,17 @@ namespace TaskTracker.Services
         {
             return tasks.Count;
         }
+        
+        public string GetStatistics()
+        {
+            int total = tasks.Count;
+            int newCount = GetTasksByStatus(TaskStatus.New).Count;
+            int inProgressCount = GetTasksByStatus(TaskStatus.InProgress).Count;
+            int doneCount = GetTasksByStatus(TaskStatus.Done).Count;
+            int cancelledCount = GetTasksByStatus(TaskStatus.Cancelled).Count;
+
+            return $"Всего: {total} | Новых: {newCount} | В работе: {inProgressCount} | Завершено: {doneCount} | Отменено: {cancelledCount}";
+        }
 
         public string GetBasicStats()
         {

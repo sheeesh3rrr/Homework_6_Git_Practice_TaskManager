@@ -4,6 +4,7 @@ namespace TaskTracker.Models
     {
         New,
         InProgress,
-        Done
+        Done,
+        Cancelled
     }
 }
