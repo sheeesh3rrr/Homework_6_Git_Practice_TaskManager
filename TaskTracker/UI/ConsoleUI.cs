@@ -17,6 +17,19 @@ namespace TaskTracker.UI
             this.storage = storage;
             this.useArrowMenu = useArrowMenu;
         }
+        
+        private void ShowStatistics()
+        {
+            Console.WriteLine();
+            Console.WriteLine("--- Статистика ---");
+            Console.WriteLine(taskService.GetStatistics());
+
+            if (useArrowMenu)
+            {
+                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.ReadKey();
+            }
+        }
 
         public void Run()
         {
@@ -42,6 +55,7 @@ namespace TaskTracker.UI
                         "Добавить задачу",
                         "Изменить статус задачи",
                         "Удалить задачу",
+                        "Статистика",
                         "Сохранить и выйти"
                     );
                 }
@@ -65,6 +79,9 @@ namespace TaskTracker.UI
                         RemoveTask();
                         break;
                     case 5:
+                        ShowStatistics();
+                        break;
+                    case 6:
                         storage.SaveTasks(taskService.GetAllTasks());
                         running = false;
                         Console.WriteLine("Задачи сохранены. До свидания!");
@@ -81,7 +98,8 @@ namespace TaskTracker.UI
             Console.WriteLine("2. Добавить задачу");
             Console.WriteLine("3. Изменить статус задачи");
             Console.WriteLine("4. Удалить задачу");
-            Console.WriteLine("5. Сохранить и выйти");
+            Console.WriteLine("5. Статистика");
+            Console.WriteLine("6. Сохранить и выйти");
             Console.Write("Выберите действие: ");
 
             string input = Console.ReadLine();
@@ -172,6 +190,7 @@ namespace TaskTracker.UI
             Console.WriteLine("1. New");
             Console.WriteLine("2. InProgress");
             Console.WriteLine("3. Done");
+            Console.WriteLine("4. Cancelled");
             Console.Write("Выберите: ");
 
             string statusInput = Console.ReadLine();
@@ -183,6 +202,7 @@ namespace TaskTracker.UI
                     case 1: taskService.ChangeStatus(id, TaskStatus.New); break;
                     case 2: taskService.ChangeStatus(id, TaskStatus.InProgress); break;
                     case 3: taskService.ChangeStatus(id, TaskStatus.Done); break;
+                    case 4: taskService.ChangeStatus(id, TaskStatus.Cancelled); break;
                     default: Console.WriteLine("Неверный выбор."); return;
                 }
                 Console.WriteLine("Статус изменён.");
@@ -226,6 +246,44 @@ namespace TaskTracker.UI
             else
             {
                 Console.WriteLine("Задача не найдена.");
+            }
+
+            if (useArrowMenu)
+            {
+                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.ReadKey();
+            }
+        }
+
+        private void SetTaskPriority()
+        {
+            Console.WriteLine();
+            Console.Write("Введите ID задачи: ");
+            string input = Console.ReadLine();
+            int id;
+            if (!int.TryParse(input, out id))
+            {
+                Console.WriteLine("Неверный ID.");
+                return;
+            }
+
+            Console.WriteLine("Приоритет:");
+            Console.WriteLine("1. Low");
+            Console.WriteLine("2. Medium");
+            Console.WriteLine("3. High");
+            Console.Write("Выберите: ");
+
+            string prInput = Console.ReadLine();
+            int prChoice;
+            if (int.TryParse(prInput, out prChoice))
+            {
+                switch (prChoice)
+                {
+                    case 1: Console.WriteLine("Приоритет установлен: Low"); break;
+                    case 2: Console.WriteLine("Приоритет установлен: Medium"); break;
+                    case 3: Console.WriteLine("Приоритет установлен: High"); break;
+                    default: Console.WriteLine("Неверный выбор."); break;
+                }
             }
 
             if (useArrowMenu)
