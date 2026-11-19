@@ -62,6 +62,17 @@ namespace TaskTracker.Services
             return false;
         }
 
+        public bool ChangePriority(int id, TaskPriority newPriority)
+        {
+            TaskItem task = GetTaskById(id);
+            if (task != null)
+            {
+                task.Priority = newPriority;
+                return true;
+            }
+            return false;
+        }
+
         public List<TaskItem> GetTasksByStatus(TaskStatus status)
         {
             List<TaskItem> result = new List<TaskItem>();
@@ -85,6 +96,16 @@ namespace TaskTracker.Services
             int total = tasks.Count;
             int doneCount = GetTasksByStatus(TaskStatus.Done).Count;
             return $"Всего задач: {total}, Завершено: {doneCount}";
+        }
+        public string GetStatistics()
+        {
+            int total = tasks.Count;
+            int newCount = GetTasksByStatus(TaskStatus.New).Count;
+            int inProgressCount = GetTasksByStatus(TaskStatus.InProgress).Count;
+            int doneCount = GetTasksByStatus(TaskStatus.Done).Count;
+            int cancelledCount = GetTasksByStatus(TaskStatus.Cancelled).Count;
+
+            return $"Всего: {total} | Новых: {newCount} | В работе: {inProgressCount} | Завершено: {doneCount} | Отменено: {cancelledCount}";
         }
     }
 }
